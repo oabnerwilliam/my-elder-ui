@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const Navbar = () => {
+  const navigate = useNavigate()
   return (
     <div>
       <ul className="flex flex-col gap-5">
