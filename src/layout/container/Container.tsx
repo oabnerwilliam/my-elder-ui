@@ -18,8 +18,8 @@ const Container = (props: ContainerProps) => {
 
   return (
     <div
-      className={`max-w-200 my-0 mx-auto 
-    flex justify-between items-center h-full
+      className={`w-full max-w-[120rem] my-0 mx-auto px-[3rem]
+    flex justify-center items-center h-full relative
     ${customClass}`}
     >
       {props.children}
