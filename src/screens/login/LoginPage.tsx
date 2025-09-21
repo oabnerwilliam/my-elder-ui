@@ -1,16 +1,10 @@
 import UserForm from "../../layout/auth/UserForm"
-import {
-  FormProvider,
-  useForm,
-  type FieldValues,
-  type SubmitHandler,
-} from "react-hook-form"
+import { FormProvider } from "react-hook-form"
+import { useLogin } from "./useLogin"
 
 export const LoginPage = () => {
-  const form = useForm()
-  const submitForm: SubmitHandler<FieldValues> = (data) => {
-    console.log(data)
-  }
+  const { form, submitForm } = useLogin()
+
   return (
     <div className="h-full flex flex-col items-center justify-center gap-[2rem]">
       <FormProvider {...form}>

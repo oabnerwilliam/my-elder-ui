@@ -5,6 +5,8 @@ import {
   type SubmitHandler,
 } from "react-hook-form"
 import { FaEye } from "react-icons/fa"
+import { SingleSelect } from "../../connectors/SingleSelect"
+import { DatePicker } from "../../connectors/DatePicker"
 
 interface UserFormProps {
   type: "signUp" | "login"
@@ -25,7 +27,7 @@ const FormInput = ({
     {...props}
     placeholder={placeholder}
     required
-    className="p-2 text-xl w-full text-secondary outline-none border border-primary"
+    className="p-2 text-md w-full text-secondary outline-none border border-primary"
   />
 )
 
@@ -57,26 +59,39 @@ const UserForm = ({ type, btnText, submitForm }: UserFormProps) => {
     >
       {type === "signUp" ? (
         <>
-          <FormInput
-            placeholder={"Insira seu primeiro nome"}
-            {...register("firstName")}
+          <SingleSelect
+            name="tipo"
+            options={[
+              { value: "idoso", label: "Idoso" },
+              { value: "cuidador", label: "Cuidador" },
+            ]}
+            placeholder="Selecione um tipo de usuário"
+          />
+          <FormInput placeholder={"Insira seu nome"} {...register("nome")} />
+          <SingleSelect
+            name="sexo"
+            options={[
+              { value: "masculino", label: "Masculino" },
+              { value: "feminino", label: "Feminino" },
+            ]}
+            placeholder="Selecione um sexo"
           />
           <FormInput
-            placeholder={"Insira seu sobrenome"}
-            {...register("lastName")}
+            placeholder={"Insira sua localização"}
+            {...register("localizacao")}
           />
+          <DatePicker name="dataNascimento" label="Data de nascimento:" />
         </>
       ) : null}
       <FormInput
-        placeholder={"Insira seu email"}
-        type={"email"}
-        {...register("email")}
+        placeholder={"Insira seu nome de usuário"}
+        {...register("nomeUsuario")}
       />
       <div className="relative w-full">
         <FormInput
           placeholder={"Insira sua senha"}
           type={inputType}
-          {...register("password")}
+          {...register("senha")}
         />
         <FaEye
           onClick={showPassword}
