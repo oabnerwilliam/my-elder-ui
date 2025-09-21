@@ -7,8 +7,12 @@ export const useLogin = () => {
   const { login } = useAuth()
   const form = useForm<LoginData>()
   const submitForm: SubmitHandler<LoginData> = (data) => {
-    login(data)
-    navigate("/")
+    try {
+      login(data)
+      navigate("/")
+    } catch (error) {
+      console.log((error as Error).message)
+    }
   }
   return { form, submitForm }
 }

@@ -10,18 +10,49 @@ import {
 } from "react-icons/tb"
 import { Link } from "react-router-dom"
 import { Button } from "../../components/ui/button"
+import { useAuth } from "../../utils/contexts/AuthContext"
+import clsx from "clsx"
+import { useMatches } from "../../screens/matches/useMatches"
+import { useListPage } from "../listpage/useListPage"
 
 interface NavProps {
   icon?: ReactNode
   text: string
   to?: string
+  onClick?: () => void
+  type?: string
 }
 
-const NavButton = ({ text, to }: NavProps) => (
+const NavButton = ({ text, to, onClick, type = "fill" }: NavProps) => (
+  <Button
+    variant="secondary"
+    className={clsx(
+      "rounded-3xl font-bold text-xl py-6 px-8 transition-all ease-in-out duration-300 cursor-pointer border-primary",
+      {
+        "bg-primary text-white hover:bg-primary-hover": type === "fill",
+        "bg-white text-primary hover:bg-gray-300 border border-primary":
+          type === "outline",
+      }
+    )}
+    onClick={onClick}
+  >
+    {text}
+  </Button>
+)
+
+const NavLink = ({ text, to, onClick, type = "fill" }: NavProps) => (
   <Link to={to}>
     <Button
       variant="secondary"
-      className="rounded-3xl font-bold text-xl py-6 px-8 bg-primary text-white hover:bg-primary-hover transition-all ease-in-out duration-300 cursor-pointer"
+      className={clsx(
+        "rounded-3xl font-bold text-xl py-6 px-8 transition-all ease-in-out duration-300 cursor-pointer border-primary",
+        {
+          "bg-primary text-white hover:bg-primary-hover": type === "fill",
+          "bg-white text-primary hover:bg-gray-300 border border-primary":
+            type === "outline",
+        }
+      )}
+      onClick={onClick}
     >
       {text}
     </Button>
@@ -39,9 +70,12 @@ const NavItem = ({ icon, text, to }: NavProps) => (
 )
 
 export const Navbar = () => {
+  const { user, logout } = useAuth()
+  const { hasMatches } = useMatches()
+
   return (
     <div className="flex items-start justify-between w-[17rem] fixed left-[3rem] shadow-nav">
-      <div className="flex flex-col items-center justify-between gap-6 h-full py-18 w-[15rem] fixed left-[3rem]">
+      <div className="flex flex-col items-center justify-center gap-6 h-full py-18 w-[15rem] fixed left-[3rem]">
         <div className="flex flex-col gap-7">
           <Link to={"/"}>
             <FaPersonCane className="text-[4rem] pl-3 hover:text-primary cursor-pointer ease-in-out duration-300 transition-all" />
@@ -50,24 +84,38 @@ export const Navbar = () => {
             <li>
               <NavItem icon={<TbHome />} text="Início" to="/" />
             </li>
-            <li>
-              <NavItem icon={<TbCane />} text="Idosos" to="/idosos" />
-            </li>
-            <li>
-              <NavItem
-                icon={<TbBandage />}
-                text="Cuidadores"
-                to="/cuidadores"
-              />
-            </li>
-            <li>
-              <NavItem icon={<TbHeart />} text="Conexões" to="/matches" />
-            </li>
+            {user ? (
+              <>
+                {user.tipo === "cuidador" ? (
+                  <li>
+                    <NavItem icon={<TbCane />} text="Idosos" to="/idosos" />
+                  </li>
+                ) : user.tipo === "idoso" ? (
+                  <li>
+                    <NavItem
+                      icon={<TbBandage />}
+                      text="Cuidadores"
+                      to="/cuidadores"
+                    />
+                  </li>
+                ) : null}
+                {hasMatches ? (
+                  <li>
+                    <NavItem icon={<TbHeart />} text="Conexões" to="/matches" />
+                  </li>
+                ) : null}
+                <div className="flex flex-col ml-2 gap-4 items-center mt-6">
+                  <NavButton text={user.nome} />
+                  <NavButton text="Sair" onClick={logout} type="outline" />
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col ml-2 gap-4 items-center mt-6">
+                <NavLink text="Entrar" to="/login" />
+                <NavLink text="Criar Conta" to="/cadastro" />
+              </div>
+            )}
           </ul>
-        </div>
-        <div className="flex flex-col ml-2 gap-4 items-center">
-          <NavButton text="Entrar" to="/login" />
-          <NavButton text="Criar Conta" to="/cadastro" />
         </div>
       </div>
       <div className="h-[100vh]">

@@ -41,19 +41,18 @@ export const useSignUp = () => {
       senha: data.senha,
       sexo: data.sexo,
     }
-    console.log(input)
 
     try {
       if (data.tipo === "idoso") {
-        const { idoso } = await salvarIdoso({
+        const { data } = await salvarIdoso({
           variables: { idosoInput: input },
         })
-        loginOnCreate(idoso)
+        loginOnCreate(data.salvarIdoso)
       } else if (data.tipo === "cuidador") {
-        const { cuidador } = await salvarCuidador({
+        const { data } = await salvarCuidador({
           variables: { cuidadorInput: input },
         })
-        loginOnCreate(cuidador)
+        loginOnCreate(data.salvarCuidador)
       }
       form.reset()
     } catch (error) {
