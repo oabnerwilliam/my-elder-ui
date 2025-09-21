@@ -1,18 +1,11 @@
 import gql from "graphql-tag"
+import { curtidaFragment } from "../queries/curtidaQueries"
 
-export const curtidaMutation = gql`
-  mutation curtir($curtidaInput: CurtidaInput!) {
-    curtir(curtidaInput: $curtidaInput) {
-      id
-      cuidador {
-        id
-        nome
-      }
-      idoso {
-        id
-        nome
-      }
-      isMatch
+export const salvarCurtidaMutation = gql`
+  mutation salvarCurtida($curtidaInput: CurtidaInput!) {
+    salvarCurtida(curtidaInput: $curtidaInput) {
+      ...curtidaFragment
     }
   }
+  ${curtidaFragment}
 `

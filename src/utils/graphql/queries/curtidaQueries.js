@@ -1,23 +1,29 @@
 import gql from "graphql-tag"
+import { usuarioFragment } from "./usuarioQueries"
 
 export const curtidaFragment = gql`
   fragment curtidaFragment on Curtida {
     id
-    cuidador {
-      id
-      nome
+    destinatario {
+      ...usuarioFragment
     }
-    idoso {
-      id
-      nome
+    autor {
+      ...usuarioFragment
     }
     isMatch
   }
+  ${usuarioFragment}
 `
 
-export const curtidasQuery = gql`
-  query {
-    listarCurtidas {
+export const isUserLikedQueryGql = gql`
+  query isUserLikedQuery($autorId: ID!, $destinatarioId: ID!) {
+    isUserLiked(autorId: $autorId, destinatarioId: $destinatarioId)
+  }
+`
+
+export const curtidasPorUsuarioQueryGql = gql`
+  query curtidasPorUsuarioQuery($id: ID!) {
+    curtidasPorUsuario(id: $id) {
       ...curtidaFragment
     }
   }
