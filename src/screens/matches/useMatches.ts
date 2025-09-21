@@ -4,7 +4,6 @@ import { matchesByUserQueryGql } from "../../utils/graphql/queries/usuarioQuerie
 
 export const useMatches = () => {
   const { user } = useAuth()
-  console.log(user)
   const { data: { matchesByUser = [] } = {} } = useQuery(
     matchesByUserQueryGql,
     {
@@ -12,6 +11,5 @@ export const useMatches = () => {
       fetchPolicy: "network-only",
     }
   )
-  console.log(matchesByUser)
   return { matchesByUser, hasMatches: matchesByUser.length > 0 }
 }
