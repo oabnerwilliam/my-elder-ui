@@ -9,6 +9,7 @@ import { Cuidadores } from "./screens/cuidadores/Cuidadores"
 import { MatchesPage } from "./screens/matches/MatchesPage"
 import { PageContainer } from "./layout/container/PageContainer"
 import { AuthProvider } from "./utils/contexts/AuthContext"
+import { Toaster } from "sonner"
 
 export const App = () => {
   return (
@@ -16,6 +17,7 @@ export const App = () => {
       <Router>
         <Container>
           <AuthProvider>
+            <Toaster />
             <Navbar />
             <PageContainer>
               <Routes>
