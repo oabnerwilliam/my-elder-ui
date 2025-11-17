@@ -1,5 +1,3 @@
-import avatarMasc from "../../assets/young-male.svg"
-import avatarFem from "../../assets/young-female.svg"
 import { FaHeart } from "react-icons/fa"
 import { FaRegHeart } from "react-icons/fa6"
 import {
@@ -16,6 +14,9 @@ import avatarFemOld from "../../assets/grandmother.png"
 import avatarMascYoung from "../../assets/young-male.svg"
 import avatarFemYoung from "../../assets/young-female.svg"
 import clsx from "clsx"
+import { Button } from "../../components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "../../components/ui/sheet"
+import { ListaRemedios } from "./ListaRemedios"
 
 export interface Usuario {
   id: string
@@ -26,7 +27,8 @@ export interface Usuario {
   idade: number
   nomeUsuario: string
   localizacao: string
-  tipo: string
+  telefone: string
+  tipoUsuario: string
 }
 
 export interface CuidadoresQuery {
@@ -118,6 +120,18 @@ export const ListPage = ({ type }: { type: string }) => {
                     <FaRegHeart />
                   </button>
                 )}
+                {type === "idosos" ? (
+                  <Sheet>
+                    <SheetTrigger>
+                      <Button className="text-xl font-bold p-6 cursor-pointer">
+                        Ver Remédios
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent>
+                      <ListaRemedios idosoId={item.id} />
+                    </SheetContent>
+                  </Sheet>
+                ) : null}
               </div>
             </CarouselItem>
           ))}

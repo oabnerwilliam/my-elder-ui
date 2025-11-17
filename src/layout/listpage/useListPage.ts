@@ -8,7 +8,7 @@ import { matchesByUserQueryGql } from "../../utils/graphql/queries/usuarioQuerie
 import { idososQueryGql } from "../../utils/graphql/queries/idosoQueries"
 import { useState } from "react"
 
-export const useListPage = ({ type }) => {
+export const useListPage = ({ type }: { type: string }) => {
   const [message, setMessage] = useState<string>("")
   const { user } = useAuth()
   const { data: { cuidadores } = {}, loading: loadingCuidadores } =
