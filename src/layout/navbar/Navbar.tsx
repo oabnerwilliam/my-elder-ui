@@ -70,7 +70,6 @@ const NavItem = ({ icon, text, to }: NavProps) => (
 export const Navbar = () => {
   const { user, logout } = useAuth()
   const { hasMatches } = useMatches()
-  console.log(user)
 
   return (
     <div className="flex items-start justify-between w-[17rem] fixed left-[3rem] shadow-nav">
