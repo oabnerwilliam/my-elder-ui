@@ -3,17 +3,15 @@ import { FaPersonCane } from "react-icons/fa6"
 import {
   TbBandage,
   TbCane,
-  TbCross,
   TbHeart,
-  TbHelp,
   TbHome,
+  TbMedicalCross,
 } from "react-icons/tb"
 import { Link } from "react-router-dom"
 import { Button } from "../../components/ui/button"
 import { useAuth } from "../../utils/contexts/AuthContext"
 import clsx from "clsx"
 import { useMatches } from "../../screens/matches/useMatches"
-import { useListPage } from "../listpage/useListPage"
 
 interface NavProps {
   icon?: ReactNode
@@ -23,7 +21,7 @@ interface NavProps {
   type?: string
 }
 
-const NavButton = ({ text, to, onClick, type = "fill" }: NavProps) => (
+const NavButton = ({ text, onClick, type = "fill" }: NavProps) => (
   <Button
     variant="secondary"
     className={clsx(
@@ -72,6 +70,7 @@ const NavItem = ({ icon, text, to }: NavProps) => (
 export const Navbar = () => {
   const { user, logout } = useAuth()
   const { hasMatches } = useMatches()
+  console.log(user)
 
   return (
     <div className="flex items-start justify-between w-[17rem] fixed left-[3rem] shadow-nav">
@@ -86,18 +85,27 @@ export const Navbar = () => {
             </li>
             {user ? (
               <>
-                {user.tipo === "cuidador" ? (
+                {user.tipoUsuario === "cuidador" ? (
                   <li>
                     <NavItem icon={<TbCane />} text="Idosos" to="/idosos" />
                   </li>
-                ) : user.tipo === "idoso" ? (
-                  <li>
-                    <NavItem
-                      icon={<TbBandage />}
-                      text="Cuidadores"
-                      to="/cuidadores"
-                    />
-                  </li>
+                ) : user.tipoUsuario === "idoso" ? (
+                  <>
+                    <li>
+                      <NavItem
+                        icon={<TbBandage />}
+                        text="Cuidadores"
+                        to="/cuidadores"
+                      />
+                    </li>
+                    <li>
+                      <NavItem
+                        icon={<TbMedicalCross />}
+                        text="Remédios"
+                        to="/remedios"
+                      />
+                    </li>
+                  </>
                 ) : null}
                 {hasMatches ? (
                   <li>

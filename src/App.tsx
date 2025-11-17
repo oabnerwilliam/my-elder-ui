@@ -10,6 +10,7 @@ import { MatchesPage } from "./screens/matches/MatchesPage"
 import { PageContainer } from "./layout/container/PageContainer"
 import { AuthProvider } from "./utils/contexts/AuthContext"
 import { Toaster } from "sonner"
+import RemediosPage from "./screens/remedios/RemediosPage"
 
 export const App = () => {
   return (
@@ -27,6 +28,7 @@ export const App = () => {
                 <Route path="/matches" element={<MatchesPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/cadastro" element={<SignUpPage />} />
+                <Route path="/remedios" element={<RemediosPage />} />
               </Routes>
             </PageContainer>
           </AuthProvider>
