@@ -7,6 +7,7 @@ import {
 import { FaEye } from "react-icons/fa"
 import { SingleSelect } from "../../connectors/SingleSelect"
 import { DatePicker } from "../../connectors/DatePicker"
+import { InputMask } from "primereact/inputmask"
 
 interface UserFormProps {
   type: "signUp" | "login"
@@ -27,6 +28,15 @@ const FormInput = ({
     {...props}
     placeholder={placeholder}
     required
+    className="p-2 text-md w-full text-secondary outline-none border border-primary"
+  />
+)
+
+const FormPhoneInput = ({ placeholder, ...props }: { placeholder: string }) => (
+  <InputMask
+    mask="(99) 99999-9999"
+    placeholder={placeholder}
+    {...props}
     className="p-2 text-md w-full text-secondary outline-none border border-primary"
   />
 )
@@ -79,6 +89,10 @@ const UserForm = ({ type, btnText, submitForm }: UserFormProps) => {
           <FormInput
             placeholder={"Insira sua localização"}
             {...register("localizacao")}
+          />
+          <FormPhoneInput
+            placeholder={"Insira seu telefone"}
+            {...register("telefone")}
           />
           <DatePicker name="dataNascimento" label="Data de nascimento:" />
         </>

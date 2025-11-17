@@ -5,11 +5,11 @@ import {
   useEffect,
   useState,
 } from "react"
-import type { Usuario } from "../../screens/cuidadores/Cuidadores"
 import { useQuery } from "@apollo/client/react"
 import { usuariosQueryGql } from "../graphql/queries/usuarioQueries"
 import Loader from "../../layout/loader/Loader"
 import { useLocation, useNavigate } from "react-router-dom"
+import type { Usuario } from "../../layout/listpage/ListPage"
 
 export interface LoginData {
   nomeUsuario: string

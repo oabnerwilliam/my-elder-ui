@@ -11,6 +11,7 @@ interface SignUpValues {
   senha: string
   sexo: string
   localizacao: string
+  telefone: string
   dataNascimento: Date
   tipo: string
 }
@@ -21,6 +22,7 @@ interface SignUpInput {
   senha: string
   sexo: string
   localizacao: string
+  telefone: string
   dataNascimento: string
 }
 
@@ -37,6 +39,7 @@ export const useSignUp = () => {
       nome: data.nome,
       dataNascimento: format(data.dataNascimento, "yyyy-MM-dd"),
       localizacao: data.localizacao,
+      telefone: data.telefone.replace(/\D/g, ""),
       nomeUsuario: data.nomeUsuario,
       senha: data.senha,
       sexo: data.sexo,
@@ -44,15 +47,29 @@ export const useSignUp = () => {
 
     try {
       if (data.tipo === "idoso") {
-        const { data } = await salvarIdoso({
+        const {
+          data: { salvarIdoso: idoso },
+        } = await salvarIdoso({
           variables: { idosoInput: input },
         })
-        loginOnCreate(data.salvarIdoso)
+        const user = {
+          ...idoso,
+          tipoUsuario: "idoso",
+          telefone: data.telefone.replace(/\D/g, ""),
+        }
+        loginOnCreate(user)
       } else if (data.tipo === "cuidador") {
-        const { data } = await salvarCuidador({
+        const {
+          data: { salvarCuidador: cuidador },
+        } = await salvarCuidador({
           variables: { cuidadorInput: input },
         })
-        loginOnCreate(data.salvarCuidador)
+        const user = {
+          ...cuidador,
+          tipoUsuario: "cuidador",
+          telefone: data.telefone.replace(/\D/g, ""),
+        }
+        loginOnCreate(user)
       }
       form.reset()
     } catch (error) {
