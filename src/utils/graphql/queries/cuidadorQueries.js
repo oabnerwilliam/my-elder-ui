@@ -10,6 +10,7 @@ export const cuidadorFragment = gql`
     senha
     sexo
     localizacao
+    telefone
     dataNascimento
     idade
   }

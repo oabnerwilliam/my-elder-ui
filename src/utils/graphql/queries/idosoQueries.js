@@ -10,6 +10,7 @@ export const idosoFragment = gql`
     senha
     sexo
     localizacao
+    telefone
     dataNascimento
     idade
   }

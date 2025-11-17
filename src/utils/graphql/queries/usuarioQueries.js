@@ -8,9 +8,10 @@ export const usuarioFragment = gql`
     senha
     sexo
     localizacao
+    telefone
     dataNascimento
     idade
-    tipo
+    tipoUsuario
   }
 `
 
